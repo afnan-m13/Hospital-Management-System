@@ -20,6 +20,6 @@ This project simulates a connected hospital management system using core data st
 
 Compile and run with any C++ compiler (like g++):
 ```bash
-g++ llasttt.cpp -o hospital
+g++ hospitalcode.cpp -o hospital
 ./hospital
 
