@@ -13,7 +13,7 @@ This project simulates a connected hospital management system using core data st
 
 | File         | Description                           |
 |--------------|---------------------------------------|
-| `llasttt.cpp`| Full implementation of the system     |
+| `hospitalcode.cpp`| Full implementation of the system     |
 | `README.md`  | Project description & instructions    |
 
 ## 🛠 How to Run
