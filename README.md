@@ -14,6 +14,7 @@ This project simulates a connected hospital management system using core data st
 | File         | Description                           |
 |--------------|---------------------------------------|
 | `hospitalcode.cpp`| Full implementation of the system     |
+| `hospitalinterface.html`|	Web-based interface simulation   |
 | `README.md`  | Project description & instructions    |
 
 ## 🛠 How to Run
