@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealZone Hospital Management</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f9fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: #007BBA;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img {
+  max-height: 70px; /* increase from smaller size */
+  margin-right: 20px; /* adds spacing between logo and title */
+
+    }
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+    .header {
+  background-color: #0077b6; /* nice hospital blue */
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+  margin-right: 15px;
+}
+
+.title {
+  font-size: 22px;
+  color: white;
+  font-weight: bold;
+  margin: 0;
+}
+
+    nav {
+      background: #005B9E;
+      display: flex;
+      justify-content: center;
+    }
+    nav button {
+      background: transparent;
+      color: white;
+      padding: 14px 25px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    nav button:hover {
+      background: #007BBA;
+    }
+    .container {
+      flex: 1;
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button.submit {
+      background: #007BBA;
+      color: white;
+      padding: 12px;
+      margin-top: 20px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button.submit:hover {
+      background: #005B9E;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    footer {
+      background: #005B9E;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-left">
+      <img src="hospitallogo.png" alt="HealZone Logo" class="logo">
+      <h1 class="title">HealZone Hospital Management System</h1>
+    </div>
+  </header>
+  
+  
+
+<nav>
+  <button onclick="showForm('patient')">Patient Record</button>
+  <button onclick="showForm('emergency')">Emergency Room</button>
+  <button onclick="showForm('treatment')">Treatment Record</button>
+</nav>
+
+<div class="container">
+  <!-- Patient Form -->
+  <form id="patientForm" onsubmit="submitForm(event, 'hospitalcode.cgi')">
+    <label>Patient ID</label>
+    <input type="number" name="id" required>
+
+    <label>Patient Name</label>
+    <input type="text" name="name" required>
+
+    <label>Diagnosis</label>
+    <input type="text" name="diagnosis" required>
+
+    <label>Critical Level</label>
+    <select name="critical" required>
+      <option value="1">1 (Low)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (High)</option>
+    </select>
+
+    <button class="submit">Submit Patient Info</button>
+    <div class="success" id="successMsg1"></div>
+  </form>
+
+  <!-- Emergency Form -->
+  <form id="emergencyForm" style="display:none" onsubmit="submitForm(event, 'hospitalcode.cgi')">
+    <label>Patient ID</label>
+    <input type="number" name="id" required>
+
+    <label>Emergency Type</label>
+    <input type="text" name="emergency" required>
+
+    <label>Arrival Time</label>
+    <input type="text" name="time" required>
+
+    <button class="submit">Submit Emergency Info</button>
+    <div class="success" id="successMsg2"></div>
+  </form>
+
+  <!-- Treatment Form -->
+  <form id="treatmentForm" style="display:none" onsubmit="submitForm(event, 'hospitalcode.cgi')">
+    <label>Patient ID</label>
+    <input type="number" name="id" required>
+
+    <label>Treatment Description</label>
+    <input type="text" name="treatment" required>
+
+    <label>Doctor Name</label>
+    <input type="text" name="doctor" required>
+
+    <button class="submit">Submit Treatment Info</button>
+    <div class="success" id="successMsg3"></div>
+  </form>
+</div>
+
+<footer>
+  &copy; 2025 HealZone Hospital. All rights reserved.
+</footer>
+
+<script>
+  function showForm(formName) {
+    document.getElementById("patientForm").style.display = "none";
+    document.getElementById("emergencyForm").style.display = "none";
+    document.getElementById("treatmentForm").style.display = "none";
+    document.getElementById(formName + "Form").style.display = "block";
+  }
+
+  function submitForm(event, endpoint) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new URLSearchParams(new FormData(form));
+
+fetch('/cgi-bin/' + endpoint, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: formData.toString()
+})
+
+    .then(res => res.text())
+    .then(() => {
+      const msgBox = form.querySelector('.success');
+      msgBox.textContent = '✅ Data saved successfully!';
+      form.reset();
+    })
+    .catch(() => alert("Error submitting form. Please try again."));
+  }
+</script>
+
+</body>
+</html>

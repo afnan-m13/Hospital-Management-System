@@ -1,0 +1,3 @@
+ID: 55, Emergency: leg hurt, Time: 22:33
+ID: 87, Emergency: heart pain, Time: 10:50
+ID: 5, Emergency: vomit, Time: 2:30

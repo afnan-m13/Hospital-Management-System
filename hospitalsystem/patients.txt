@@ -1,0 +1,4 @@
+ID: 54, Name: Ahmed, Diagnosis: flu, Critical: 1
+ID: 56, Name: abdullah, Diagnosis: head pain, Critical: 2
+ID: 65, Name: yahya, Diagnosis: back pain, Critical: 3
+ID: 5, Name: jana, Diagnosis: headache, Critical: 2
